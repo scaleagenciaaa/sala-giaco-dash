@@ -2,7 +2,7 @@ name: Refresh Sala Giaco (3h)
 
 on:
   schedule:
-    - cron: '31 */3 * * *'   # backup a cada 3h (minuto :31 p/ fugir do pico) — best effort
+    - cron: '44 */3 * * *'   # 24/11/2026: org nova scaleagenciaaa, horario proprio (dashes nao rodam juntas)
   workflow_dispatch:          # gatilho confiável = cron-job.org faz POST aqui
 
 permissions:
