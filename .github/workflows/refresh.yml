@@ -2,13 +2,11 @@ name: Refresh Sala Giaco (3h)
 
 on:
   schedule:
-    - cron: '44 */3 * * *'   # 24/11/2026: org nova scaleagenciaaa, horario proprio (dashes nao rodam juntas)
+    - cron: '21,51 * * * *'   # 25/11/2026: a cada 30 min (pedido do cliente), minuto proprio
   workflow_dispatch:          # gatilho confiável = cron-job.org faz POST aqui
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
   group: sala-giaco-pages
@@ -33,24 +31,3 @@ jobs:
             git pull --rebase origin main
             git push
           } else { Write-Host "sem mudancas" }
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-      - name: Monta _site (só arquivos públicos — sem CSV/PII)
-        run: |
-          mkdir -p _site
-          cp index.html app.js styles.css data.js data-imersao.js data-mcp.js .nojekyll _site/
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
-      - id: deployment
-        uses: actions/deploy-pages@v4
