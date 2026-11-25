@@ -2,7 +2,7 @@ name: Refresh Sala Giaco (3h)
 
 on:
   schedule:
-    - cron: '21,51 * * * *'   # 25/11/2026: a cada 30 min (pedido do cliente), minuto proprio
+    - cron: '21 */3 * * *'   # reserva: o disparo principal e o cron-job.org (30 em 30 min)
   workflow_dispatch:          # gatilho confiável = cron-job.org faz POST aqui
 
 permissions:
